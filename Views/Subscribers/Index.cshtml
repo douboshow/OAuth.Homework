@@ -1,0 +1,91 @@
+﻿@model IEnumerable<OAuth.Homework.Models.Subscriber>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<a href="#NotifyAll" class="btn btn-info">Notify All</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Photo)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.LINEUserId)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.LINELoginAccessToken)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.LINELoginIDToken)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.LINENotifyAccessToken)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    <img src="@item.Photo" width="50" height="50" />
+                    @*@Html.DisplayFor(modelItem => item.Photo)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LINEUserId)
+                </td>
+                <td>
+                    <span class="d-inline-block text-truncate" style="max-width:150px;">
+                        @Html.DisplayFor(modelItem => item.LINELoginAccessToken)
+                    </span>
+                </td>
+                <td>
+                    <span class="d-inline-block text-truncate" style="max-width:150px;">
+                        @Html.DisplayFor(modelItem => item.LINELoginIDToken)
+                    </span>
+                </td>
+                <td>
+                    <span class="d-inline-block text-truncate" style="max-width:150px;">
+                        @Html.DisplayFor(modelItem => item.LINENotifyAccessToken)
+                    </span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+<script>
+    jQuery(function ($) {
+       $(document).delegate("a[href='#NotifyAll']", "click", function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: "/LINENotify/NotifyAll",
+                async: true,
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    alert(data.value);
+                }
+            });
+
+        });
+    });
+</script>
+}

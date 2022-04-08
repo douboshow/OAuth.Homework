@@ -1,0 +1,30 @@
+﻿@model OAuth.Homework.Models.Subscriber
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    @if (Model == null)
+    {
+        <h1 class="display-4">請先登入Line</h1>
+        <a href="/LINELogin/SignIn" class="btn btn-success">Line Login</a>
+    }
+    else
+    {
+        <img src="@Model.Photo" width="150" height="150" />
+        <h1 class="display-4">Welcome @Model.Username</h1>
+
+        @if (string.IsNullOrEmpty(Model.LINENotifyAccessToken))
+        {
+            <a href="/LINENotify/Subscribe" class="btn btn-primary">Subscribe</a>
+        }
+        else
+        {
+            <a href="/LINENotify/Unsubscribe" class="btn btn-danger">Unsubscribe</a>
+        }
+
+        <a href="/LINELogin/SignOutLine" class="btn btn-secondary">Line Logout</a>
+    }
+</div>
+
+
